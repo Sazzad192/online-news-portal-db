@@ -18,7 +18,7 @@ class CreateComCategoriesTable extends Migration
             $table->bigIncrements('cat_id');
             $table->boolean('cat_type')->nullable();
             $table->string('cat_name', 255)->unique();
-            $table->string('cat_name-bn', 255)->unique();
+            $table->string('cat_name_bn', 255)->unique();
             $table->string('cat_slug', 255)->unique();
             $table->string('cat_title', 255)->unique()->nullable();
             $table->string('cat_meta_keyword', 255);

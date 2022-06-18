@@ -11,7 +11,7 @@
 
             <div>
                 <label for="cat_name"> Category Name: </label>
-                <input type="text" name="cat_name" id="cat_name" value="{{old('cat_name')}}" required > <br>
+                <input type="text" name="cat_name" id="cat_name" value="{{old('cat_name')}}" required> <br>
                 @error('cat_name')
                     <span class="text-danger">{{$message}}</span>
                 @enderror

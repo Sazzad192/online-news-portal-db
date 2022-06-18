@@ -1,7 +1,9 @@
  <h1>Dhaka post podcast</h1>
+
+ <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1284031795&color=%23264650&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/dpostonline" title="Dhaka Post" target="_blank" style="color: #cccccc; text-decoration: none;">Dhaka Post</a> · <a href="https://soundcloud.com/dpostonline/5kfnghuldapa" title="রাজধানীতে স্বস্তির বৃষ্টি" target="_blank" style="color: #cccccc; text-decoration: none;">রাজধানীতে স্বস্তির বৃষ্টি</a></div>
  
- <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
-src="https://w.soundcloud.com/player/?url=https%3A//&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+ {{-- <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
+src="https://w.soundcloud.com/player/?url=https%3A//&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe> --}}
 
 
 

@@ -62,6 +62,9 @@ Route::get('/show_image/{bn_Content}','\App\Http\Controllers\BnContentController
 Route::get('/is_evergreen/{bn_Content}','\App\Http\Controllers\BnContentController@showimage');  //Evergreen
 
 Route::resource('podcast',PodcastController::class); //podcast
+Route::resource('podcast-home',FontendController::class);//podcast-fontend
+// Route::get('/detail{podcast_id}','\App\Http\Controllers\FontendController@details');//podcast- details
+Route::get('/news_by_cat{cat_id}{cat_slug}','\App\Http\Controllers\FontendController@cat_news');//podcast- details
 
 
 Route::get('/apend','\App\Http\Controllers\AppendController@append');

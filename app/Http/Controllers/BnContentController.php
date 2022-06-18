@@ -36,17 +36,6 @@ class BnContentController extends Controller
     public function store(Request $request)
     {
         Bn_Content::create($request->all());
-
-        // $content=new Bn_Content;
-        // $content->content_id = $request->content
-        // if($request->hasFile('img_bg_path')){
-        //     $file= $request->hasFile('img_bg_path');
-        //     $extention= $file->getClientOriginalExtension();
-        //     $filename = time(). '.' .$extention;
-        //     $file->move('content', $filename);
-        //     $content->img_bg_path->$filename;
-
-        // }
         session()->flash('msg', 'Content created successfully!');
         return redirect('content');
     }

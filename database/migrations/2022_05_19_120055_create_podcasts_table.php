@@ -15,8 +15,14 @@ class CreatePodcastsTable extends Migration
     {
         Schema::create('podcasts', function (Blueprint $table) {
             $table->bigIncrements('podcast_id');
-            $table->text('podcast_url')->unique();
+            $table->unsignedBigInteger('cat_id')->unsigned();
+            $table->foreign('cat_id')->references('cat_id')->on('com__categories'); //Categories foreign key
+            $table->string('cloud_url', 255)->unique();
+            $table->string('cloud_id',255)->unique();
+            $table->text('news_body');
             $table->string('heading', 255);
+            $table->string('news_header', 255);
+            $table->string('news_img_path', 255)->nullable();
             $table->timestamps();
         });
     }
