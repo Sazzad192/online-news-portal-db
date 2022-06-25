@@ -29,20 +29,27 @@
                         <label class="national">আর্কাইভ</label>
                         <img src="image/d_post.png" alt="">
                     </div>
-
+                    @php
+                        function bn2en($number)
+                        {
+                            $engNumber = array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+                            $bangNumber = array("১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯", "০", "জানুয়ারী", "ফেব্রুয়ারী", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগষ্ট", "সেপ্টেম্বার", "অক্টোবার", "নভেম্বার", "ডিসেম্বার");
+                            $converted = str_replace($engNumber, $bangNumber, $number);
+                            return $converted;
+                        }
+                    @endphp
+                    
                     @foreach ($podcasts as $item)
 
                         <a href="{{"/detail".$item->podcast_id}}" class="d-flex align-items-center bg_color">
                             <div class="flex-shrink-0">
-                                <img src="image/audio_pic.png" alt="...">
+                                <img src="{{$item->news_img_path}}" alt="...">
                             </div>
                             <div class="flex-grow-1">
                                     {{$item->heading}}
                                 <span class="d-flex small_text">
-                                    <p> {{$item->categorys->cat_name_bn}} | </p>
-                                    <p> {{$item->updated_at}} | </p>
-                                    <p>১৩ মে ২০২২ | </p>
-                                    <p> ১২:৩০</p>
+                                    <p> {{$item->categorys->cat_name_bn}} &nbsp;|</p>
+                                    <p> &nbsp; {{bn2en(date('d M Y | H:i', strtotime($item->updated_at)))}} </p>
                                 </span>
                             </div>
                             <div id="player-container">

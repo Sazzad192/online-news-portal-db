@@ -14,7 +14,8 @@
         <thead>
             <tr>
                 <td>Category</td>
-                <td>Cloud_url</td>
+                <td>Cloud_ID</td>
+                <td>Image path</td>
                 <td>Heading</td>
                 <td>News Body</td>
             </tr>
@@ -24,7 +25,8 @@
             @foreach ($podcasts as $item)
                 <tr>
                     <td>{{$item->categorys->cat_name}}</td> 
-                    <td>{{$item->cloud_url}}</td>
+                    <td>{{$item->cloud_id}}</td>
+                    <td>{{$item->news_img_path}}</td>
                     <td>{{$item->heading}}</td>
                     <td>{{$item->news_body}}</td>
                 </tr>

@@ -4,7 +4,7 @@
 
     <a href="{{url('podcast')}}">Back to home</a>
 
-    <form action="{{route('podcast.store')}}" method="POST">
+    <form action="{{route('podcast.store')}}" method="POST" enctype="multipart/form-data">
         {{@csrf_field()}}
         
         <div>

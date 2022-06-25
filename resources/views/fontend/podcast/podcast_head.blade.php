@@ -295,7 +295,6 @@
     <main role="main">
 
         <div class="zakat-calculator-area">
-
             <div class="podcast-head-bg">
                 <div class="container">
                     <div class="row">
@@ -306,6 +305,7 @@
                     </div>
                 </div>
             </div>
+            @yield('podcast-first')
             @yield('podcast-home')
             @yield('detail')
             @yield('cat_detail')

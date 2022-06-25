@@ -20,6 +20,7 @@
                         <span class="fa fa-search form-control-feedback"></span>
                         <input type="text" class="form-control search_input" placeholder="পডকাস্ট সার্চ করুন">
                     </div>
+                    
                     <button type="button" class="btn btn-group search_button"> খুঁজুন </button>
                 </div>
                 
@@ -36,13 +37,13 @@
 
                         <a href="{{"/detail".$item->podcast_id}}" class="d-flex align-items-center bg_color">
                             <div class="flex-shrink-0">
-                                <img src="image/audio_pic.png" alt="...">
+                                <img src="{{$item->news_img_path}}" alt="...">
                             </div>
                             <div class="flex-grow-1">
                                     {{$item->heading}}
                                 <span class="d-flex small_text">
                                     <p> {{$item->categorys->cat_name_bn}} | </p>
-                                    <p> {{$item->updated_at}}</p>
+                                    <p> {{ date('d-M-Y | G:i:s', strtotime($item->updated_at)) }} </p>
                                 </span>
                             </div>
                             <div id="player-container">

@@ -104,7 +104,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     </head>
     
-
 <body>
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"
@@ -393,23 +392,34 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-8">
-
-                    <img class="img-fluid pb-3" src="{{ url('$folder_year/$folder_name/'.$podcasts->news_img_path)}}" alt="">
+                    @php
+                        function bn2en($number)
+                        {
+                            $engNumber = array("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+                            $bangNumber = array("১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯", "০", "জানুয়ারী", "ফেব্রুয়ারী", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগষ্ট", "সেপ্টেম্বার", "অক্টোবার", "নভেম্বার", "ডিসেম্বার");
+                            $converted = str_replace($engNumber, $bangNumber, $number);
+                            return $converted;
+                        }
+                    @endphp
+                    <p class="text-left mb-2">তারিখঃ {{bn2en(date('d-M-Y || H:i', strtotime($podcasts->updated_at)))}}</p>
+                    <div class="news_img">
+                        <img class="img-fluid mb-3" src="{{$podcasts->news_img_path}}" alt="">
+                    </div>
 
                     <div class="mobile_footer">
                         <div class="d-flex justify-content-around mobile_icon">
                                     
-                            <div class="prev-track" onclick="prevTrack()">
+                            <button class="prev-track" id="backwardbtn">
                                 <i class="fas fa-history fa-1x"></i>
-                            </div>
+                            </button>
 
                             <button class="playpause-track" id="playpausebtn">
                                 <i class="fa fa-play fa-1x"></i>
                             </button>
 
-                            <div class="repeat-track" onclick="repeatTrack()">
+                            <button class="repeat-track" id="forwardbtn">
                                 <i class="fa fa-repeat fa-1x" title="repeat"></i>
-                            </div>
+                            </button>
 
                             <div id="click" class="repeat-track" id="my_centered_buttons">
                                 <a class="a2a_dd" href="https://www.addtoany.com/share">
@@ -420,7 +430,9 @@
                         </div>
 
                         <div class="d-flex justify-content-center mobile_change">
+                            <span id="curtimetext">00:00</span>
                             <input id="seekslider" type="range" min="0" max="100" value="0" step="1">
+                            <span id="durtimetext">00:00</span>
                         </div>
 
                     </div>
@@ -442,11 +454,11 @@
                         <img src="image/d_post.png" alt="">
                     </a>
 
-                    <a href="news_by_cat1politics" class="d-flex justify-content-between label_bg_two">
+                    <a href="news_by_cat4politics" class="d-flex justify-content-between label_bg_two">
                         <label class="national">রাজনীতি</label>
                         <img src="image/d_post.png" alt="">
                     </a>
-                    <a href="#" class="d-flex justify-content-between label_bg_three">
+                    <a href="news_by_cat6economy" class="d-flex justify-content-between label_bg_three">
                         <label class="national">অর্থনীতি</label>
                         <img src="image/d_post.png" alt="">
                     </a>
@@ -458,7 +470,7 @@
                         <label class="national">আন্তর্জাতিক</label>
                         <img src="image/d_post.png" alt="">
                     </a>
-                    <a href="#" class="d-flex justify-content-between label_bg_six">
+                    <a href="news_by_cat1sports" class="d-flex justify-content-between label_bg_six">
                         <label class="national">খেলা</label>
                         <img src="image/d_post.png" alt="">
                     </a>
@@ -478,10 +490,11 @@
           jQuery(".listing").fadeToggle(600);
         });
     </script>
+    
     <script async src="https://static.addtoany.com/menu/page.js"></script>
     
     <script>
-        var audio, playbtn, mutebtn, seekslider, seeking=false, seekto;
+        var audio, backbtn, playbtn, skipbtn, seekslider, seeking=false, seekto;
 
         function initAudioPlayer(){
             audio = new Audio();
@@ -490,16 +503,27 @@
             audio.play();
             
             // Set object references
+            backbtn = document.getElementById("backwardbtn")
             playbtn = document.getElementById("playpausebtn");
+            skipbtn = document.getElementById("forwardbtn");
             seekslider = document.getElementById("seekslider");
+            curtimetext = document.getElementById("curtimetext");
+            durtimetext = document.getElementById("durtimetext");
 
             // Add Event Handling
+            backbtn.addEventListener("click",backward);
             playbtn.addEventListener("click",playPause);
-            seekslider.addEventListener("mousedown", function(event){ seeking=true; seek(event); });
+            skipbtn.addEventListener("click",forward);
             seekslider.addEventListener("mousemove", function(event){ seek(event); });
+            seekslider.addEventListener("mousedown", function(event){ seeking=true; seek(event); });
             seekslider.addEventListener("mouseup",function(){ seeking=false; });
+            audio.addEventListener("timeupdate", function(){ seektimeupdate(); });
             
             // Functions
+            function backward(){
+                audio.currentTime -= 10.0;
+            }
+
             function playPause(){
 
                 if(audio.paused){
@@ -513,6 +537,11 @@
                 }
             }
 
+            function forward(){
+                
+                audio.currentTime += 10.0;
+            }
+
             function seek(event){
                 if(seeking){
                     seekslider.value = event.clientX - seekslider.offsetLeft;
@@ -520,14 +549,40 @@
                     audio.currentTime = seekto;
                 }
             }
+
+            function seektimeupdate(){
+                var nt = audio.currentTime * (100 / audio.duration);
+                seekslider.value = nt;
+                var curmins = Math.floor (audio.currentTime / 60);
+                var cursecs = Math.floor (audio.currentTime - curmins * 60);
+                var durmins = Math.floor (audio.duration / 60);
+                var dursecs = Math.floor (audio.duration - durmins * 60);
+
+                if(cursecs < 10) { cursecs = "0" + cursecs; }
+                if(dursecs < 10) { dursecs = "0" + dursecs; }
+                if(curmins < 10) { curmins = "0" + curmins; }
+                if(durmins < 10) { durmins = "0" + durmins; }
+                
+                curtimetext.innerHTML = curmins + ":" + cursecs;
+                durtimetext.innerHTML = durmins + ":" + dursecs;
+            }
         }
 
         window.addEventListener("load", initAudioPlayer);
     </script>
 
-    <style>
+    <style> 
 
-        #my_centered_buttons { display: flex; justify-content: center; }
+        .news_img img{
+            height: 527px;
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        #my_centered_buttons { 
+            display: flex;
+            justify-content: center;
+        }
 
         button {
             border: none;

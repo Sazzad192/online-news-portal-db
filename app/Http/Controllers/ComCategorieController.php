@@ -60,9 +60,8 @@ class ComCategorieController extends Controller
         {   
             $file= $request->file('img_icon_path');
             $local_file_name= str_replace(' ','_', $file->getClientOriginalName());
-            $final_name = $folder_year. '/' .$folder_name. '/' .$local_file_name;
-            $file->move(public_path('$folder_year/$folder_name'), $final_name);
-            // $file->move( $folder_year, $folder_name, $local_file_name);
+            $final_name = $folder_year. '/' .$folder_name. '/' .'category_img' . '/' .$local_file_name;
+            $file->move(public_path('').'/'.$folder_year.'/'.$folder_name .'/category_img', $final_name);
             $categorys->img_icon_path= $final_name;
         }
 

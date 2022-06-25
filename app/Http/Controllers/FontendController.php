@@ -13,7 +13,7 @@ class FontendController extends Controller
     public function index()
     {
         $categorys = Com_Categorie::all();
-        $podcasts= Podcast::all();
+        $podcasts= Podcast::orderBy('created_at','desc')->get();
         return view('fontend.podcast.archive', compact('categorys','podcasts'));
     }
 
